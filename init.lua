@@ -46,3 +46,5 @@ require('lazy').setup {
         { import = 'plugins.addons.harpoon' },
     },
 }
+
+vim.cmd.colorscheme(env_var_nvim_theme)
