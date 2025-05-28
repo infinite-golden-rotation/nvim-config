@@ -43,5 +43,6 @@ require('lazy').setup {
         { import = themes[env_var_nvim_theme] },
         { import = 'plugins.core' },
         { import = 'plugins.lsp' },
+        { import = 'plugins.addons.harpoon' },
     },
 }

@@ -5,9 +5,9 @@ return {
         -- vim.cmd.colorscheme 'onedark'
 
         local transparency = false
-        local config = {
+        local fig = {
             -- Main options --
-            style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+            style = 'deep', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
             transparent = transparency, -- Show/hide background
             term_colors = true, -- Change terminal color as per the selected theme style
             ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
@@ -15,7 +15,9 @@ return {
 
             -- toggle theme style ---
             toggle_style_key = '<leader>tc', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-            toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
+            toggle_style_list = { 'cool', 'deep', 'dark', 'darker', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
+            --toggle_style_key = nil,
+            --toggle_style_list = nil,
 
             -- Change code style ---
             -- Options are italic, bold, underline, none
@@ -48,7 +50,7 @@ return {
         }
 
         local onedark = require 'onedark'
-        onedark.setup(config)
+        onedark.setup(fig)
         onedark.load()
 
         -- Make the background of diagnostics messages transparent
