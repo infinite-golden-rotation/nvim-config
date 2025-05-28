@@ -4,16 +4,17 @@ return {
     config = function()
         -- vim.cmd.colorscheme 'onedark'
 
+        local transparency = false
         local config = {
             -- Main options --
             style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-            transparent = true, -- Show/hide background
+            transparent = transparency, -- Show/hide background
             term_colors = true, -- Change terminal color as per the selected theme style
             ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
             cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
             -- toggle theme style ---
-            toggle_style_key = '<leader>th', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+            toggle_style_key = '<leader>tc', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
             toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' }, -- List of styles to toggle between
 
             -- Change code style ---
@@ -29,7 +30,7 @@ return {
 
             -- Lualine options --
             lualine = {
-                transparent = false, -- lualine center bar transparency
+                transparent = transparency, -- lualine center bar transparency
             },
 
             -- Custom Highlights --
@@ -67,8 +68,12 @@ return {
             set_diagnostics_bg_transparency()
         end
 
-        vim.keymap.set('n', '<leader>bg', toggle_transparency, { noremap = true, silent = true })
+        vim.keymap.set('n', '<leader>tt', toggle_transparency, { noremap = true, silent = true, desc = '[T]oggle Colorscheme [S]tyle' })
     end,
+    keys = {
+        { '<leader>tt', desc = '[T]oggle [T]ransparency' },
+        { '<leader>tc', desc = '[T]oggle Colorscheme [S]tyle' },
+    },
 }
 
 -- OneDark colors
