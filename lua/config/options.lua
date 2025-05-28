@@ -22,8 +22,8 @@ vim.o.scrolloff = 4 -- minimal number of screen lines to keep above and below th
 vim.o.sidescrolloff = 8 -- minimal number of screen columns either side of cursor if wrap is `false`
 vim.o.relativenumber = true -- set relative numbered lines
 vim.o.numberwidth = 4 -- set number column width to 2 {default 4}
-vim.o.shiftwidth = 4 -- the number of spaces inserted for each indentation
-vim.o.tabstop = 4 -- insert n spaces for a tab
+vim.o.shiftwidth = 2 -- the number of spaces inserted for each indentation
+vim.o.tabstop = 2 -- insert n spaces for a tab
 vim.o.softtabstop = 4 -- Number of spaces that a tab counts for while performing editing operations
 vim.o.expandtab = true -- convert tabs to spaces
 vim.o.cursorline = false -- highlight the current line
@@ -50,7 +50,5 @@ vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- separate vim plugins fro
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function()
-        vim.hl.on_yank()
-    end,
+    callback = function() vim.hl.on_yank() end,
 })
