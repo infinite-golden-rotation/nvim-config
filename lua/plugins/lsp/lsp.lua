@@ -116,10 +116,21 @@ return {
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
                 if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
                     local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+
+                    -- Disable highlight on cabal files so we don't get errors
+                    local filetype = vim.api.nvim_buf_get_option(event.buf, 'filetype')
+                    local highlight_except = function(filetype)
+                        if filetype ~= 'cabal' then
+                            return vim.lsp.buf.document_highlight
+                        else
+                            return function() end
+                        end
+                    end
+
                     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
                         buffer = event.buf,
                         group = highlight_augroup,
-                        callback = vim.lsp.buf.document_highlight,
+                        callback = highlight_except(filetype),
                     })
 
                     vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
@@ -147,6 +158,16 @@ return {
                         function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end,
                         '[T]oggle Inlay [H]ints'
                     )
+                end
+
+                if filetype == 'cabal' and (client.name == 'hls' or client.name == 'haskell-language-server') then
+                    -- Disable just the hover capability
+                    --client.server_capabilities.documentHighlightProvider = false
+                    --client.server_capabilities.hoverProvider = false
+                    --client.server_capabilities.documentSymbolProvider = false
+                    vim.lsp.handlers['textDocument/documentHighlight'] = function() end
+                    vim.lsp.handlers['textDocument/documentSymbol'] = function() end
+                    vim.lsp.handlers['textDocument/hover'] = function() end
                 end
             end,
         })
